@@ -17,11 +17,27 @@ Console.WriteLine($"3. feladat: Dolgozók száma: {dolgozok.Count()} fő");
 var linqAVG = dolgozok.Average(d => d.Ber);
 Console.WriteLine($"4. feladat: A bérek átlaga: {Math.Round(linqAVG / 1000, 1)}E Ft");
 
-Console.WriteLine("5. feladat: Kérem a részleg nevét: ");
+Console.Write("5. feladat: Kérem a részleg nevét: ");
 string reszlegNev = Console.ReadLine();
 
 
-Console.WriteLine("6. feladat");
+Console.WriteLine("6. feladat: A legtöbbet dolgozó a megadott részlegen");
+var linqReszleg = dolgozok.FirstOrDefault(d => d.Hely == reszlegNev);
+if (linqReszleg != null)
+{
+    var linqMax = dolgozok.OrderByDescending(d => d.Ber).Where(d => d.Hely == reszlegNev).First();
+    var linqMaxi = dolgozok.IndexOf(linqMax);
+    Console.WriteLine(
+        $"\tNév: {dolgozok[linqMaxi].Nev}" +
+        $"\n\tNem: {dolgozok[linqMaxi].Nem}" +
+        $"\n\tBelépés: {dolgozok[linqMaxi].Belepes}" +
+        $"\n\tBér: {dolgozok[linqMaxi].Ber:000 000} Forint"
+        );
+}
+else
+{
+    Console.WriteLine("Nincs ilyen részleg");
+}
 
 
 Console.WriteLine("7.feladat: Statisztika");
